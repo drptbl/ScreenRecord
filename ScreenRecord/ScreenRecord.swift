@@ -263,10 +263,10 @@ extension ScreenRecord: ScreenRecordable {
                 return
             }
             
-            CVPixelBufferLockBaseAddress(pixelBuffer, 0)
+            CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
             let context = CGBitmapContextCreate(CVPixelBufferGetBaseAddress(pixelBuffer), CGImageGetWidth(imageRef), CGImageGetHeight(imageRef), CGImageGetBitsPerComponent(imageRef), CGImageGetBytesPerRow(imageRef), CGColorSpaceCreateDeviceRGB(), CGImageGetBitmapInfo(imageRef).rawValue)
-            CGContextDrawImage(context, CGRect(x: 0.0, y: 0.0, width: CGFloat(CGImageGetWidth(imageRef)), height: CGFloat(CGImageGetHeight(imageRef))), imageRef)
-            CVPixelBufferUnlockBaseAddress(pixelBuffer, 0)
+            CGContextDrawImage(context!, CGRect(x: 0.0, y: 0.0, width: CGFloat(CGImageGetWidth(imageRef)), height: CGFloat(CGImageGetHeight(imageRef))), imageRef)
+            CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
             
             let timeScale: Double = 600
             let currentTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
